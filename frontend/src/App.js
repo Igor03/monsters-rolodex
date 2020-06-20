@@ -19,7 +19,7 @@ class App extends Component {
 
   
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch('http://127.0.0.1:5000/monster')
     .then(response => response.json())
     .then(users => this.setState({monsters:users}));
   }
