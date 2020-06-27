@@ -11,6 +11,9 @@ class App extends Component {
       monsters: [],
       searchField: ''
     };
+    // Temos que fazer isso pois, inicialmente, a classe nao conhece a funcao  
+    // this.handleChange = this.handleChange.bind(this);
+
   }
 
   // componentDidMount() {
@@ -26,6 +29,15 @@ class App extends Component {
     .then(users => this.setState({monsters:users}));
   }
 
+
+  // Arrow functions sao inseridas no contexto da classe em que sao definidas, automaticamente
+  // Entao "this" será conhecido em qualquer parte da classe 
+  handleChange = (e) => {
+    this.setState({searchField: e.target.value}) 
+    console.log(this.state)
+  }
+  
+
   render() {
 
     const { monsters, searchField } = this.state;
@@ -40,6 +52,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <h1> Monsters Rolodex </h1>
         
         {/* e.target: Retorna o proprio elemento na tela */ }
         {/* e.target.value: Retorna a propriedade "value" ou o valor do elemento */ }
@@ -56,9 +69,7 @@ class App extends Component {
         }
         
         <SearchBox placeholder='search monsters' 
-          handleChange = {e => {
-            this.setState({searchField: e.target.value }, () => console.log(this.state)
-          )}}
+          handleChange = {this.handleChange}
         />
         <CardList monsters={filteredMonsters}>         
         </CardList>
